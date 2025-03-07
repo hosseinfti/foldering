@@ -6,6 +6,7 @@ import {
   ChevronDown,
   Plus,
 } from "lucide-react";
+import "./App.css";
 
 const fileStructure = [
   {
