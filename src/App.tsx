@@ -141,3 +141,125 @@ export default function App() {
     </div>
   );
 }
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+function isNonAlphanumeric(str) {
+  return str.replace(/[a-zA-Z0-9]/g, "").length === str.length;
+}
+var isPalindrome = function (s) {
+  let first = 0;
+  let last = s.length - 1;
+  while (first < last) {
+    while (isNonAlphanumeric(s[first])) {
+      first++;
+    }
+    while (isNonAlphanumeric(s[last])) {
+      last--;
+    }
+    if (s[first].toLowerCase() === s[last].toLowerCase()) {
+      first++;
+      last--;
+      continue;
+    } else {
+      return false;
+    }
+  }
+  return true;
+};
+
+// console.log(isPalindrome("A man, a plan, a canal: Panama"));
+
+function maxProfit(prices: number[]): number {
+  let maxProfit = 0;
+  let buy_price = prices[0];
+  for (let day = 1; day < prices.length; day++) {
+    if (prices[day] < buy_price) {
+      buy_price = prices[day];
+    } else {
+      maxProfit = Math.max(maxProfit, prices[day] - buy_price);
+    }
+  }
+  return maxProfit;
+}
+// console.log(maxProfit([1, 3, 6, 4, 3]));
+
+function romanToInteger(s: string): number {
+  const romanMap = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+  };
+  let result = 0;
+  for (let i = 0; i < s.length; i++) {
+    const current = romanMap[s[i]];
+    const next = romanMap[s[i + 1]];
+    if (next && current < next) {
+      result -= current;
+    } else {
+      result += current;
+    }
+  }
+  return result;
+}
+
+// console.log(romanToInteger("MCMXCIV"));
+
+function lastWordLength(s: string): number {
+  let length = 0;
+  for (let i = s.length - 1; i >= 0; i--) {
+    if (s[i] === " ") {
+      if (length === 0) {
+        continue;
+      } else {
+        break;
+      }
+    } else {
+      length++;
+    }
+  }
+  return length;
+}
+// console.log(lastWordLength("   fly me   to   the moon  "));
+
+function removeDuplicatesInPlace(nums: number[]): number {
+  let k = 1;
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] !== nums[i - 1]) {
+      nums[k] = nums[i];
+      k++;
+    }
+  }
+  return k;
+}
+// console.log(removeDuplicatesInPlace([1, 1, 2, 2, 3, 4, 4, 5]));
+
+//یکتانت
+// رشته‌ای تشکیل شده از کاراکتر‌های حرفی و عددی به شما می‌دهیم. تعداد اعداد integer یکتای موجود در این رشته را بدهید.
+// input: a123bc34d8ef34
+// output: 3
+// hint: {123, 34, 8}
+
+function uniqNumber(str) {
+  let seen = new Set();
+  let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+  for (let i = 0; i < str.length; i++) {
+    if (!numbers.includes(str[i])) {
+      continue;
+    } else {
+      if (seen.has(str[i])) {
+        continue;
+      } else {
+        seen.add(str[i]);
+      }
+    }
+  }
+  return seen.size;
+}
+// console.log(uniqNumber("a123bc34d8ef34"));
